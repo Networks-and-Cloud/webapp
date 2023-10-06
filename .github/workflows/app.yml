@@ -77,7 +77,7 @@ jobs:
         sudo systemctl status mysql
 
 
-        mysql -u ${{ secrets.MYSQL_USER}} -p"${{secrets.MYSQL_PASSWORD}}"
+        mysql -u ${{secrets.MYSQL_USER}} -p"${{secrets.MYSQL_PASSWORD}}"
 
         - name : Run Tests
           run :  npm test
