@@ -5,7 +5,7 @@ const expect = _expect;
 
 use(chaiHttp);
 
-import app from '../app2.js';
+import app from './app2.js';
 
 describe('API Tests', () => {
   
