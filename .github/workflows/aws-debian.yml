@@ -25,11 +25,11 @@ jobs:
         run: packer init ./webapp/
        
       - name: Packer fmt
-        run: packer fmt -check ./webapp/aws-debian.pkr.hcl
+        run: packer fmt -check packer/ami.us-east-1.pkr.hcl
 
       - name: Packer validate
         run: |
-          packer validate ./webapp/aws-debian.pkr.hcl
+          packer validate packer/ami.us-east-1.pkr.hcl
           
       - name: Check for errors
         run: |
