@@ -54,12 +54,12 @@ jobs:
         shell: bash
 
       - name: Run packer init
-        run: packer init ./webapp/aws.debian.pkr.hcl
+        run: packer init packer ami.us-east-1.pkr.hcl
 
       - name: Build AMI with Packer
         id: packer_build
         run: |
-         ami_id=$(packer build aws-debian.pkr.hcl | grep 'ami-' | cut -d' ' -f2)
+         ami_id=$(packer build ami.us-east-1.pkr.hcl | grep 'ami-' | cut -d' ' -f2)
          echo "AMI ID: $ami_id"
          echo "::set-output name=ami_id::$ami_id"
          shell: bash
