@@ -22,7 +22,7 @@ jobs:
           packer_version: '1.8.6'
 
       - name: Initialize Packer
-        run: packer init ./ webapp/
+        run: packer init packer/
        
       - name: Packer fmt
 
