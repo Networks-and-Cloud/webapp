@@ -1,0 +1,50 @@
+name: Packer Validation
+
+on:
+  pull_request:
+    branches:
+     - main
+jobs:
+  validate:
+    name: Validate Packer Template
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Zip Web App
+        run: zip -r webapp.zip ./
+
+      - name: Install Packer
+        uses: hashicorp/setup-packer@main
+        with:
+          packer_version: '1.8.6'
+
+      - name: Initialize Packer
+        run: packer init packer/
+       
+      - name: Packer fmt
+
+        run: packer fmt -check packer/ami.us-east-1.pkr.hcl
+
+      - name: Packer validate
+        run: |
+          packer validate packer/ami.us-east-1.pkr.hcl
+
+          
+      - name: Check for errors
+        run: |
+          if [[ $? -eq 0 ]]; then
+            echo "Packer template formatting and validation succeeded."
+          else
+            echo "Packer template formatting or validation failed."
+            exit 1
+          fi
+
+          
+      - name: Fail if Packer validation fails
+        if: ${{ failure() }}
+        run: |
+          echo "Packer validation failed. Preventing pull request from merging."
+          exit 1
