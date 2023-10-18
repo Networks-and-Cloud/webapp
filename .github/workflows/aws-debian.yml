@@ -31,7 +31,6 @@ jobs:
       - name: Packer validate
         run: |
           packer validate packer/ami.us-east-1.pkr.hcl
-
           
       - name: Check for errors
         run: |
