@@ -23,7 +23,6 @@ jobs:
          echo "DB_DIALECT=${{ secrets.DB_DIALECT}}" >> .env
          cat .env
 
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
