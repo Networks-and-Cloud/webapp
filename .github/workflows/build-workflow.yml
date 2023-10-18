@@ -1,4 +1,4 @@
-name: Build Packer AMI
+name: Node.js CI
 
 on:
   push:
@@ -6,67 +6,67 @@ on:
       - main
 
 jobs:
-  packer_build:
+  build:
+    name: CI
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
-      - name:  env file
-        run: |
-         touch .env
-        
-         echo "MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE}}" >> .env
-         echo "MYSQL_USER=${{ secrets.MYSQL_USER}}" >> .env
-         echo "MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD}}" >> .env
-         echo "MYSQL_PORT=${{ secrets.MYSQL_PORT}}" >> .env
-         echo "MYSQL_HOST=${{ secrets.MYSQL_HOST}}" >> .env
-         echo "DB_DIALECT=${{ secrets.DB_DIALECT}}" >> .env
-         cat .env
+    - name: Setup Node.js
+      uses: actions/setup-node@v2
+      with:
+        node-version: 18
 
+    - name: Display .env file
+      run: |
+        touch .env
+        echo "MYSQL_DATABASE=${{ secrets.MYSQL_DATABASE }}" >> .env
+        echo "MYSQL_USER=${{ secrets.MYSQL_USER }}" >> .env
+        echo "MYSQL_PASSWORD=${{ secrets.MYSQL_PASSWORD }}" >> .env
+        echo "MYSQL_PORT=${{ secrets.MYSQL_PORT }}" >> .env
+        echo "MYSQL_HOST=${{ secrets.MYSQL_HOST }}" >> .env
+        echo "DB_DIALECT=${{ secrets.DB_DIALECT }}" >> .env
+        cat .env
+    - name: configuremysql
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y curl
+        sudo systemctl start mysql
+        sudo systemctl status mysql
+        mysql -u ${{ secrets.MYSQL_USER }} -p"${{ secrets.MYSQL_PASSWORD }}"
+    - name: Zip webapp contents
+      run: |
+        zip -r webapp.zip ./
+    - name: list files
+      run: |
+        ls -a
+        current_directory=$(pwd)
+    - name: Set up Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: v18.17.1
 
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: 'us-east-1'
+    - name: install the dependencies
+      run: npm install
 
-      - name: Zip Application Artifact
-        run: |
-          "sudo apt-get update",
-          "sudo apt-get upgrade -y",
-          "sudo apt install mariadb-client mariadb-server",
-          "sudo systemctl status mariadb",
-          "sudo systemctl start mariadb",
-          "sudo systemctl enable mariadb",
-          "sudo mysql_secure_installation",
-          "sudo apt-get clean",
-          zip -r webapp.zip ./
+    - name: run the integration
+      run: |
+        npm test
+    - name: Set up packer
+      run: |
+        wget https://releases.hashicorp.com/packer/1.7.3/packer_1.7.3_linux_amd64.zip
+        unzip packer_1.7.3_linux_amd64.zip
+        chmod +x packer
+        sudo mv packer /usr/local/bin/
+      shell: bash
 
-      - name:  Set up Packer
-        run : 
-         wget https://releases.hashicorp.com/packer/1.7.2/packer_1.7.2_linux_amd64.zip
-         unzip packer_1.7.2_linux_amd64.zip
-         chmod +x packer
-         mv packer /usr/local/bin
-        shell: bash
+    - name: Initialize Packer
+      run: packer init packer/ami.us-east-1.pkr.hcl
 
-      - name: Run packer init
-        run: packer init ./webapp/aws.debian.pkr.hcl
-
-      - name: Build AMI with Packer
-        id: packer_build
-        run: |
-         ami_id=$(packer build aws-debian.pkr.hcl | grep 'ami-' | cut -d' ' -f2)
-         echo "AMI ID: $ami_id"
-         echo "::set-output name=ami_id::$ami_id"
-         shell: bash
-
-      - name: Fail if any step failed
-        run: |
-          if [[ ${{ job.status }} != 'completed' ]]; then
-            echo "One or more steps in the workflow failed. Cancelling the AMI build."
-            exit 1
-          fi
+    - name: Build AMI
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      run: packer build packer/ami.us-east-1.pkr.hcl
