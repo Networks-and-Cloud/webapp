@@ -80,7 +80,7 @@ jobs:
          ami_id=$(packer build ami.us-east-1.pkr.hcl | grep 'ami-' | cut -d' ' -f2)
          echo "AMI ID: $ami_id"
          echo "::set-output name=ami_id::$ami_id"
-         shell: bash
+      shell: bash
 
     - name: Fail if any step failed
       run: |
