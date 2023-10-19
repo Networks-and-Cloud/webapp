@@ -47,14 +47,12 @@ jobs:
       uses: actions/setup-node@v3
       with:
         node-version: v18.17.1
-
-
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: 'us-east-1'
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+            aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            aws-region: 'us-east-1'
           
     - name: install the dependencies
       run: npm install
@@ -73,21 +71,19 @@ jobs:
 
     - name: Initialize Packer
       run: packer init packer/ami.us-east-1.pkr.hcl
-
-
-      - name: Run packer init
-        run: packer init packer ami.us-east-1.pkr.hcl
-
-      - name: Build AMI with Packer
-        id: packer_build
-        run: |
+      
+    - name: Run packer init
+      run: packer init packer ami.us-east-1.pkr.hcl
+    - name: Build AMI with Packer
+      id: packer_build
+      run: |
          ami_id=$(packer build ami.us-east-1.pkr.hcl | grep 'ami-' | cut -d' ' -f2)
          echo "AMI ID: $ami_id"
          echo "::set-output name=ami_id::$ami_id"
-         shell: bash
+      shell: bash
 
-      - name: Fail if any step failed
-        run: |
+    - name: Fail if any step failed
+      run: |
           if [[ ${{ job.status }} != 'completed' ]]; then
             echo "One or more steps in the workflow failed. Cancelling the AMI build."
             exit 1
