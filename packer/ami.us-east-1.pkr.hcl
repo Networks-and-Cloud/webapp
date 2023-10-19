@@ -3,7 +3,7 @@ variable "aws_profile" {
 
   type = string
 
-  default = "DEV"
+  default = "dev"
 
 }
 
@@ -135,7 +135,7 @@ build {
 
   provisioner "file" {
 
-    source = "webapp.zip"
+    source = "./app-build/appl.zip"
 
     destination = "/tmp/webapp.zip"
 
