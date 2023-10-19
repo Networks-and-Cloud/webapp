@@ -91,7 +91,7 @@ jobs:
 
     - name: Fail if any step failed
       run: |
-          if [[ ${{ job.status }} != 'completed' ]]; then
+          if [[ ${{ job.status }} != 'success' ]]; then
             echo "One or more steps in the workflow failed. Cancelling the AMI build."
             exit 1
           fi
