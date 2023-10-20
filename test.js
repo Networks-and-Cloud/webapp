@@ -16,6 +16,7 @@ describe('API Tests', () => {
     }else{
       //success ful 
       process.exit(0);
+
     }
   })
   it('', (done) => {  
@@ -26,7 +27,8 @@ describe('API Tests', () => {
           expect(err).to.be.null;
           expect(res).to.have.status(200);
         } catch (error) {
-          isError=true;
+         isError=true;
+
         }
         done();
       });
