@@ -137,7 +137,7 @@ build {
 
     source = "./app-build/appl.zip"
 
-    destination = "/tmp/webapp.zip"
+    destination = "/appl.zip"
 
   }
 
@@ -149,11 +149,13 @@ build {
 
       "sudo apt-get install unzip", # Making sure unzip is installed
 
-      "cd /tmp",
+      "cd /",
 
-      "unzip webapp.zip", # Unzip the webapp.zip
+      "unzip appl.zip", # Unzip the webapp.zip
 
-      "npm install" # Install dependencies
+      "npm install", # Install dependencies
+
+      "pwd"
 
     ]
 
