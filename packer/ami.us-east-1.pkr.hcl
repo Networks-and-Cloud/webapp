@@ -138,7 +138,8 @@ build {
 
     source = "./app-build/appl.zip"
 
-    destination = "/tmp/appl.zip"
+    destination = "appl.zip"
+
 
 
   }
@@ -150,8 +151,6 @@ build {
     inline = [
 
       "sudo apt-get install unzip", # Making sure unzip is installed
-
-      "cd /tmp",
 
       "unzip appl.zip", # Unzip the webapp.zip
 
