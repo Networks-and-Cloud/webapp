@@ -11,11 +11,12 @@ describe('API Tests', () => {
    let isError=false;
   after(()=>{
     if(isError){
-      // terminate with success
-      process.exit(0);
-    }else{
-      //throw error 
+      // terminate with failure
       process.exit(1);
+    }else{
+      //success ful 
+      process.exit(0);
+
     }
   })
   it('', (done) => {  
@@ -27,6 +28,7 @@ describe('API Tests', () => {
           expect(res).to.have.status(200);
         } catch (error) {
          isError=true;
+
         }
         done();
       });
