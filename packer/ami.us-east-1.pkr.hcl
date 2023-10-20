@@ -150,6 +150,7 @@ build {
 
       "sudo apt-get install unzip", # Making sure unzip is installed
 
+      "cd /",
 
       "unzip appl.zip", # Unzip the webapp.zip
 
