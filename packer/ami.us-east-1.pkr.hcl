@@ -136,10 +136,9 @@ build {
   provisioner "file" {
     direction = "upload"
 
-    source = "./app-build/appl.zip"
+    source = "./webapp.zip"
 
-    destination = "appl.zip"
-
+    destination = "webapp.zip"
 
 
   }
@@ -152,7 +151,8 @@ build {
 
       "sudo apt-get install unzip", # Making sure unzip is installed
 
-      "unzip appl.zip", # Unzip the webapp.zip
+      "unzip webapp.zip", # Unzip the webapp.zip
+
 
       "npm install", # Install dependencies
 
@@ -182,4 +182,4 @@ build {
 
 
 
- 
+
