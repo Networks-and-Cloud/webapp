@@ -134,10 +134,11 @@ build {
 
 
   provisioner "file" {
+    direction= "upload",
 
     source = "./app-build/appl.zip"
 
-    destination = "/appl.zip"
+    destination = "appl.zip"
 
   }
 
