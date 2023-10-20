@@ -141,6 +141,7 @@ build {
     destination = "appl.zip"
 
 
+
   }
 
 
@@ -150,8 +151,6 @@ build {
     inline = [
 
       "sudo apt-get install unzip", # Making sure unzip is installed
-
-      "cd /",
 
       "unzip appl.zip", # Unzip the webapp.zip
 
