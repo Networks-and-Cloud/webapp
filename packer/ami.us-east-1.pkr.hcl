@@ -141,7 +141,6 @@ build {
     destination = "webapp.zip"
 
 
-
   }
 
 
@@ -153,6 +152,7 @@ build {
       "sudo apt-get install unzip", # Making sure unzip is installed
 
       "unzip webapp.zip", # Unzip the webapp.zip
+
 
       "npm install", # Install dependencies
 
