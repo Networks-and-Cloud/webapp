@@ -87,8 +87,8 @@ source "amazon-ebs" "webapp" {
 
 
 
-  source_ami = "ami-06db4d78cb1d3bbf9"
-
+  source_ami =   "ami-06db4d78cb1d3bbf9" 
+   
   ssh_username = var.ssh_username
 
   ami_users = ["250748355299"] # Replace with the DEMO AWS Account ID 250748355299 112
