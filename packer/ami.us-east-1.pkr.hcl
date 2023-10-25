@@ -21,7 +21,7 @@ variable "region" {
 
 variable "source_ami_owner" {
 
-  type =   string
+  type = string
 
   default = "372558015288"
 
