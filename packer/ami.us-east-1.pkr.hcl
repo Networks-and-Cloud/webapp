@@ -3,7 +3,7 @@ variable "aws_profile" {
 
   type = string
 
-  default = "DEV"
+  default = "dev"
 
 }
 
@@ -156,10 +156,12 @@ sudo apt-get clean
   }
 
   provisioner "file" {
+    direction = "upload"
 
-    source = "webapp.zip"
+    source = "./webapp.zip"
 
-    destination = "/tmp/webapp.zip"
+    destination = "webapp.zip"
+
 
   }
 
@@ -169,13 +171,13 @@ sudo apt-get clean
 
     inline = [
 
-      "sudo apt-get install unzip",
+      "sudo apt-get install unzip", # Making sure unzip is installed
 
       "cd /tmp",
 
       "unzip webapp.zip",
 
-      "npm install"
+      "npm install" # Install dependencies
 
     ]
 
@@ -203,4 +205,4 @@ sudo apt-get clean
 
 
 
- 
+

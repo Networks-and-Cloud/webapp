@@ -22,6 +22,7 @@ jobs:
           packer_version: '1.8.6'
 
       - name: Initialize Packer
+
         run: packer init packer/
        
       - name: Packer fmt
@@ -31,7 +32,6 @@ jobs:
       - name: Packer validate
         run: |
           packer validate packer/ami.us-east-1.pkr.hcl
-
           
       - name: Check for errors
         run: |
