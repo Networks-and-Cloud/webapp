@@ -66,7 +66,6 @@ build {
       "sudo mkdir /opt/csye6225/webapp",
       "sudo unzip /home/admin/webapp.zip -d /opt/csye6225/webapp/",
       "cd /opt/csye6225/webapp",
-      "sudo npm install",
       "sudo chown -R csye6225:csye6225 /opt/csye6225/webapp/",
       "sudo chmod -R 755 /opt/csye6225/webapp/",
       "sudo mv /opt/csye6225/webapp/unit.service /etc/systemd/system/",
