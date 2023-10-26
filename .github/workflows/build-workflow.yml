@@ -82,6 +82,7 @@ jobs:
     #       chmod +x packer
     #       sudo mv packer /usr/local/bin/
     #   shell: bash
+
       
 
     - name: Initialize Packer
