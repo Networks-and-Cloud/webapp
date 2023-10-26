@@ -45,6 +45,7 @@ source "amazon-ebs" "debian-ami" {
   source_ami    = var.source_ami_owner
   ssh_username  = var.ssh_username
   ami_users     = ["185549876317"] # Replace with the correct AWS Account ID
+
 }
 build {
   sources = ["source.amazon-ebs.debian-ami"]
