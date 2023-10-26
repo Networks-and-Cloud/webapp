@@ -13,6 +13,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: install the dependencies
+        run: npm install
+
       - name: Zip Web App
         run: zip -r webapp.zip ./
 
