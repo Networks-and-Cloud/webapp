@@ -74,12 +74,15 @@ jobs:
         
     - name: Set up Packer
       run: |
-        sudo rm -r -f packer_1.7.3_linux_amd64.zip
-        sudo wget https://releases.hashicorp.com/packer/1.7.3/packer_1.7.3_linux_amd64.zip
-        sudo unzip -o packer_1.7.3_linux_amd64.zip
-        chmod +x packer
-        sudo mv packer /usr/local/bin/
+          if [ -f packer ]; then
+            sudo rm packer
+          fi
+          sudo wget https://releases.hashicorp.com/packer/1.7.3/packer_1.7.3_linux_amd64.zip
+          sudo unzip -o packer_1.7.3_linux_amd64.zip
+          chmod +x packer
+          sudo mv packer /usr/local/bin/
       shell: bash
+      
 
     - name: Initialize Packer
       run: packer init  packer/ami.us-east-1.pkr.hcl
