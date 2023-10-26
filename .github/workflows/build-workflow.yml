@@ -84,8 +84,10 @@ jobs:
     - name: Build AMI with Packer
       id: packer_build
       run: |
-        packer init /packer/ami.us-east-1.pkr.hcl
-        packer build /packer/ami.us-east-1.pkr.hcl
+        packer init ../packer/ami.us-east-1.pkr.hcl
+        packer fmt -check ../packer/ami.us-east-1.pkr.hcl
+        packer validate ../packer/ami.us-east-1.pkr.hcl 
+        packer build ../packer/ami.us-east-1.pkr.hcl
         # ami_id=$(packer build packer/ami.us-east-1.pkr.hcl | grep 'ami-' | cut -d' ' -f2)
         #  echo "AMI ID: $ami_id"
         #  echo "::set-output name=ami_id::$ami_id"
