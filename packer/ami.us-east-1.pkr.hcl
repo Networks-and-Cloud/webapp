@@ -64,7 +64,7 @@ build {
       "sudo groupadd csye6225",
       "sudo useradd -s /bin/false -g csye6225 -d /opt/csye6225 -m csye6225",
       "sudo unzip /home/admin/webapp.zip",
-      "sudo mv /home/admin/webapp/unit.service /etc/systemd/system/",
+      "sudo mv /home/admin/webapp/packer/unit.service /etc/systemd/system/",
       "sudo systemctl enable unit",
       "sudo systemctl start unit",
       "sudo apt-get clean"
