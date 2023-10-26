@@ -142,8 +142,8 @@ cd /opt/csye6225/webapp
 sudo npm install
 echo "Dependencies installed"
  
-sudo chown -R csye6225:csye6225 .
-sudo chmod -R 755 .
+sudo chown -R csye6225:csye6225 /opt/csye6225/webapp/
+sudo chmod -R 755 /opt/csye6225/webapp/
  
 sudo mv /opt/csye6225/webapp/databaseEnv.service /etc/systemd/system/
  
