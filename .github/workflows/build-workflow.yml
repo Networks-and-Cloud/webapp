@@ -43,6 +43,10 @@ jobs:
         sudo systemctl start mysql
         sudo systemctl status mysql
         mysql -u ${{ secrets.MYSQL_USER }} -p"${{ secrets.MYSQL_PASSWORD }}"
+
+    - name: install the dependencies
+      run: npm install
+      
     - name: Zip webapp contents
       run: |
         zip -r webapp.zip ./
