@@ -78,18 +78,17 @@ jobs:
         sudo mv packer_temp/packer /usr/local/bin/
       shell: bash
 
-    # - name: Initialize Packer
-    #   run: packer init --upgrade packer/ami.us-east-1.pkr.hcl
+    - name: Initialize Packer
+      run: packer init --upgrade packer/ami.us-east-1.pkr.hcl
       
-    - name: Build AMI with Packer
-      id: packer_build
-      run: |
 
-        packer init /packer/ami.us-east-1.pkr.hcl
-        packer build /packer/ami.us-east-1.pkr.hcl
-        # ami_id=$(packer build packer/ami.us-east-1.pkr.hcl | grep 'ami-' | cut -d' ' -f2)
-        #  echo "AMI ID: $ami_id"
-        #  echo "::set-output name=ami_id::$ami_id"
+    - name: Build AMI
+  
+      env:
+  
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_KEY }}
+      run: packer build packer/ami.us-east-1.pkr.hcl
         
       shell: bash
 
