@@ -48,6 +48,12 @@ source "amazon-ebs" "debian-ami" {
 }
 build {
   sources = ["source.amazon-ebs.debian-ami"]
+  provisioner "file" {
+    source      = "./webapp.zip"
+    destination = "/home/admin/webapp.zip"
+    direction   = "upload"
+  }
+
   provisioner "shell" {
     inline = [
       "sudo apt-get update",
@@ -69,9 +75,5 @@ build {
     ]
   }
 
-  provisioner "file" {
-    source      = "./webapp.zip"
-    destination = "/home/admin/webapp.zip"
-    direction   = "upload"
-  }
+
 }
