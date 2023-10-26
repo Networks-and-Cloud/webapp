@@ -78,8 +78,8 @@ jobs:
         sudo mv packer_temp/packer /usr/local/bin/
       shell: bash
 
-    - name: Initialize Packer
-      run: packer init --upgrade packer/ami.us-east-1.pkr.hcl
+    # - name: Initialize Packer
+    #   run: packer init --upgrade packer/ami.us-east-1.pkr.hcl
       
     - name: Build AMI with Packer
       id: packer_build
