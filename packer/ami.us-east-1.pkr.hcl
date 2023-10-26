@@ -66,8 +66,6 @@ build {
       "sudo mkdir /home/admin/webapp",
       "sudo unzip /home/admin/webapp.zip -d /home/admin/webapp/",
       "sudo mv /home/admin/webapp/unit.service /etc/systemd/system/",
-      "sudo systemctl enable unit",
-      "sudo systemctl start unit",
       "sudo apt-get clean"
     ]
   }
