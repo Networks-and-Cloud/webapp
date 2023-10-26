@@ -44,7 +44,7 @@ source "amazon-ebs" "debian-ami" {
   region        = var.region
   source_ami    = var.source_ami_owner
   ssh_username  = var.ssh_username
-  ami_users     = ["250748355299"] # Replace with the correct AWS Account ID
+  ami_users     = ["185549876317"] # Replace with the correct AWS Account ID
 }
 build {
   sources = ["source.amazon-ebs.debian-ami"]
