@@ -160,7 +160,7 @@ build {
 
     source = "./webapp.zip"
 
-    destination = "webapp.zip"
+    destination = "/tmp/webapp.zip"
 
 
   }
