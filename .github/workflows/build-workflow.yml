@@ -73,13 +73,13 @@ jobs:
     - name: Set up Packer
       run: |
         wget https://releases.hashicorp.com/packer/1.7.3/packer_1.7.3_linux_amd64.zip
-        unzip -o packer_1.7.3_linux_amd64.zip -d packer_temp
-        chmod +x packer_temp/packer
-        sudo mv packer_temp/packer /usr/local/bin/
+        unzip -o packer_1.7.3_linux_amd64.zip 
+        chmod +x packer
+        sudo mv packer /usr/local/bin/
       shell: bash
 
-    # - name: Initialize Packer
-    #   run: packer init --upgrade packer/ami.us-east-1.pkr.hcl
+    - name: Initialize Packer
+      run: packer init  packer/ami.us-east-1.pkr.hcl
       
     - name: Build AMI
       env:
