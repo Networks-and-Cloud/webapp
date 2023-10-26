@@ -88,7 +88,7 @@ source "amazon-ebs" "webapp" {
 
 
 
-  source_ami = " ami-06db4d78cb1d3bbf9"
+  source_ami = "ami-06db4d78cb1d3bbf9"
 
 
   ssh_username = var.ssh_username
@@ -147,10 +147,10 @@ build {
       "sudo chmod -R 755 /opt/csye6225/webapp/",
 
 
-      "sudo mv /opt/csye6225/webapp/databaseEnv.service /etc/systemd/system/",
+      "sudo mv /opt/csye6225/webapp/unit.service /etc/systemd/system/",
 
-      "sudo systemctl enable databaseEnv",
-      "sudo systemctl start databaseEnv",
+      "sudo systemctl enable unit",
+      "sudo systemctl start unit",
 
       "sudo apt-get clean",
     ]
