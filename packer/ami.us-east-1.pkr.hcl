@@ -23,7 +23,7 @@ variable "source_ami_owner" {
 
   type = string
 
-  default = "372558015288"
+  default = "ami-06db4d78cb1d3bbf9"
 
 }
 
