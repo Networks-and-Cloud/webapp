@@ -57,6 +57,7 @@ build {
 
   provisioner "shell" {
     inline = [
+      "sudo apt-get install -y nodejs npm",
       "sudo apt-get update",
       "sudo apt-get install -y unzip",
       "sudo apt-get clean",
