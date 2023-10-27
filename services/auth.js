@@ -42,6 +42,9 @@ export const getCredentials = (req) => {
     console.log(req.header("Authorization"));
   
     const token = req.header("Authorization");
+    if(!token){
+      return res.status(401).json("Unauthorized")
+    }
     let arr = '';
     if (token == undefined) {
       return arr;
