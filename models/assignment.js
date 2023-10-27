@@ -1,15 +1,21 @@
 import sequelize from '../config/dbConfig.js';
 import { DataTypes } from 'sequelize';
+import { v4 as uuidv4 } from 'uuid'; // Import the UUID library
 
 export const Assignment = sequelize.define('Assignment', {
+  id: {
+    type: DataTypes.UUID, // Define the data type as UUID
+    defaultValue: () => uuidv4(), // Set the default value to a generated UUID
+    primaryKey: true,
+    allowNull: false,
+  },
   name: {
     type: DataTypes.STRING,
     allowNull: false,
     validate: {
-    
       notEmpty: true,
     },
-    unique:true
+    unique: true,
   },
   points: {
     type: DataTypes.INTEGER,
@@ -24,7 +30,7 @@ export const Assignment = sequelize.define('Assignment', {
     allowNull: false,
     validate: {
       min: 1,
-      max:3
+      max: 3,
     },
   },
   deadline: {
@@ -44,6 +50,5 @@ export const Assignment = sequelize.define('Assignment', {
   createdBy: {
     type: DataTypes.STRING,
     allowNull: false,
-        }
+  },
 });
-

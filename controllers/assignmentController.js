@@ -88,3 +88,6 @@ export const updateAssignment = async (req, res) => {
   }
 };
 
+export const patchAssignment = async (req, res) => {
+  res.status(405).send();
+}

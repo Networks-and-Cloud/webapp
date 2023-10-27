@@ -11,6 +11,7 @@ router.post('/v1/assignments', assessToken, assignmentController.createAssignmen
 router.get('/v1/assignments/:id', assessToken, assignmentController.getAssignmentById);
 router.delete('/v1/assignments/:id',assessToken,assignmentController.deleteAssignment);
 router.put('/v1/assignments/:id', assessToken, assignmentController.updateAssignment);
-
+router.patch('/v1/assignments',assignmentController.patchAssignment);
+router.patch('/v1/assignments/:id',assignmentController.patchAssignment);
 export default router;
 
