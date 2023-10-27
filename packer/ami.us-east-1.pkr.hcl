@@ -67,7 +67,7 @@ build {
       "sudo mkdir /home/admin/webapp",
       "sudo unzip /home/admin/webapp.zip -d /home/admin/webapp",
 
-      "sudo cp /home/admin/webapp/packer/unit.service /lib/systemd/system/",
+      "sudo cp /home/admin/webapp/packer/unit.service /lib/systemd/system/unit.service",
       "sudo apt-get clean"
     ]
   }
