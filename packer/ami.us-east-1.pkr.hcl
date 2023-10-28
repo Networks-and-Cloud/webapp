@@ -72,7 +72,7 @@ build {
       "echo 'Dependencies installed'",
       "sudo chown -R csye6225:csye6225 .",
       "sudo chmod -R 755 .",
-      "sudo mv /opt/csye6225/webapp/unit.service /etc/systemd/system  /",
+      "sudo mv /opt/csye6225/webapp/unit.service /etc/systemd/system/",
       "sudo systemctl enable unit",
       "sudo systemctl start unit",
       "sudo apt-get clean",
