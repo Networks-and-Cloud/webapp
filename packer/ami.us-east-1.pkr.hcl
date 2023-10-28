@@ -57,6 +57,7 @@ build {
 
   provisioner "shell" {
     inline = [
+
       "sudo apt update -y",
       "sudo apt upgrade -y",
       "sudo apt-get install -y nodejs npm",
@@ -76,6 +77,7 @@ build {
       "sudo systemctl enable unit",
       "sudo systemctl start unit",
       "sudo apt-get clean",
+
     ]
   }
 
