@@ -1,0 +1,20 @@
+[Unit]
+Description=CSYE Health API
+ConditionPathExists=/opt/csye6225/webapp
+After=network.target
+ 
+ 
+[Service]
+Type=simple
+User=csye6225
+Group=csye6225
+WorkingDirectory=/home/admin/webapp
+ExecStart=/usr/bin/node /home/admin/webapp/app2.js
+Restart=always
+RestartSec=3
+StandardOutput=journal
+StandardError=journal
+SysLogIdentifier=csye6225
+ 
+[Install]
+WantedBy=multi-user.target
