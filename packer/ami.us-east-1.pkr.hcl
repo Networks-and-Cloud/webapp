@@ -44,40 +44,30 @@ source "amazon-ebs" "debian-ami" {
   region        = var.region
   source_ami    = var.source_ami_owner
   ssh_username  = var.ssh_username
-  ami_users     = ["185549876317", "657518575690"] # Replace with the correct AWS Account ID
+  ami_users     = ["185549876317"] # Replace with the correct AWS Account ID
 
 }
 build {
   sources = ["source.amazon-ebs.debian-ami"]
   provisioner "file" {
-    source      = "webapp.zip"
-    destination = "~/webapp"
+    source      = "./webapp.zip"
+    destination = "/home/admin/webapp.zip"
     direction   = "upload"
   }
 
   provisioner "shell" {
     inline = [
-
-      "sudo apt update -y",
-      "sudo apt upgrade -y",
-      "sudo apt-get install -y nodejs npm",
+      "sudo apt-get update",
       "sudo apt-get install -y unzip",
       "sudo apt-get clean",
-      "sudo apt remove git -y",
+      "sudo apt-get remove git -y",
       "sudo groupadd csye6225",
       "sudo useradd -s /bin/false -g csye6225 -d /opt/csye6225 -m csye6225",
-      "sudo mkdir /opt/csye6225/webapp",
-      "sudo unzip webapp -d /opt/csye6225/webapp/",
-      "cd /opt/csye6225/webapp",
-      "sudo npm install",
-      "echo 'Dependencies installed'",
-      "sudo chown -R csye6225:csye6225 .",
-      "sudo chmod -R 755 .",
-      "sudo mv /opt/csye6225/webapp/unit.service /etc/systemd/system/",
-      "sudo systemctl enable unit",
-      "sudo systemctl start unit",
-      "sudo apt-get clean",
+      "sudo mkdir /home/admin/webapp",
+      "sudo unzip /home/admin/webapp.zip -d /home/admin/webapp",
 
+      "sudo cp /home/admin/webapp/packer/unit.service /lib/systemd/system/",
+      "sudo apt-get clean"
     ]
   }
 
