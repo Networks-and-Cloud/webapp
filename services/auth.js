@@ -8,11 +8,11 @@ export async function assessToken(req, res ,next){
     const password = arr[1];
     const user = await findUserbyUsername(username);
     if(!user){
-        return res.status(401).json("Unauthorized")
+        return res.status(401).json("Unauthorized");
     }
     const passwordCheck = await bcrypt.compare(password, user.password)
     if(!passwordCheck){
-        return res.status(401).json("Unauthorized")
+        return res.status(401).json("Unauthorized");
     }
 
     return next()
@@ -43,7 +43,8 @@ export const getCredentials = (req) => {
   
     const token = req.header("Authorization");
     if(!token){
-      return res.status(401).json("Unauthorized")
+      return "unauthorised";
+      // return res.status(401).json("Unauthorized");
     }
     let arr = '';
     if (token == undefined) {
