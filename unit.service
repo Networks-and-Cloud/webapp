@@ -18,3 +18,4 @@ SysLogIdentifier=csye6225
  
 [Install]
 WantedBy=cloud-init.target
+
