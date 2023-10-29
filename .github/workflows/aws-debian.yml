@@ -21,8 +21,8 @@ jobs:
 
       - name: Install Packer
         uses: hashicorp/setup-packer@main
-        with:
-          packer_version: '1.8.6'
+        # with: 
+        #   packer_version: '1.8.6'
 
       - name: Initialize Packer
 
