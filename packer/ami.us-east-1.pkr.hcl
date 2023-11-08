@@ -60,7 +60,6 @@ build {
     direction   = "upload"
   }
 
-
   provisioner "shell" {
     inline = [
 
