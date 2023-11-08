@@ -85,19 +85,14 @@ build {
       "sudo apt-get clean",
 
       # Install the Unified CloudWatch Agent
-      "sudo wget https://amazoncloudwatch-agent.s3.amazonaws.com/debian/amd64/latest/amazon-cloudwatch-agent.deb",
-      "sudo dpkg -i -E ./amazon-cloudwatch-agent.deb",
-      "unzip AmazonCloudWatchAgent.zip",
-      # "sudo ./install.sh",
+      "sudo wget -O /home/admin/amazon-cloudwatch-agent.deb https://s3.amazonaws.com/amazoncloudwatch-agent/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb",
+      "sudo dpkg -i /home/admin/amazon-cloudwatch-agent.deb",
+      "sudo mv /home/admin/cloudwatch-config.json /opt/aws/amazon-cloudwatch-agent/bin/",
+
       # Upload the CloudWatch Agent configuration file (amazon-cloudwatch-agent.json)
-      "sudo cp amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json",
-      # Start the CloudWatch Agent and enable it to start on boot
-
-
-      "sudo mv /tmp/cloudwatch-config.json /opt/csye6225/cloudwatch-config.json",
+      "sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/bin/cloudwatch-config.json -s",
 
       "sudo apt clean",
-      "sudo rm -rf /var/lib/apt/lists/*",
       "sudo rm -rf /var/lib/apt/lists/*",
     ]
   }
