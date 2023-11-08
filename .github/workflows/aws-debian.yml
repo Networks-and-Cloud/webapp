@@ -29,10 +29,12 @@ jobs:
         run: packer init packer/
        
       - name: Packer fmt
+        working-directory: packer
 
         run: packer fmt -check packer/ami.us-east-1.pkr.hcl
 
       - name: Packer validate
+        working-directory: packer
         run: |
           packer validate packer/ami.us-east-1.pkr.hcl
           
