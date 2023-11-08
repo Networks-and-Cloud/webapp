@@ -12,10 +12,10 @@ WorkingDirectory=/opt/csye6225/webapp
 ExecStart=/usr/bin/node /opt/csye6225/webapp/app2.js
 Restart=always
 RestartSec=3
-# StandardOutput=journal
-# StandardError=journal
+
 StandardOutput=append:/var/log/webapp.log
 StandardError=append:/var/log/webapp-error.log
+
 SysLogIdentifier=csye6225
  
 [Install]
