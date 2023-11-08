@@ -31,12 +31,12 @@ jobs:
       - name: Packer fmt
         working-directory: packer
 
-        run: packer fmt -check packer/ami.us-east-1.pkr.hcl
+        run: packer fmt -check ami.us-east-1.pkr.hcl
 
       - name: Packer validate
         working-directory: packer
         run: |
-          packer validate packer/ami.us-east-1.pkr.hcl
+          packer validate ami.us-east-1.pkr.hcl
           
       - name: Check for errors
         run: |
