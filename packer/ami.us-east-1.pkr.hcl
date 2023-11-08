@@ -44,14 +44,19 @@ source "amazon-ebs" "debian-ami" {
   region        = var.region
   source_ami    = var.source_ami_owner
   ssh_username  = var.ssh_username
-  ami_users     = ["185549876317", "657518575690"] # Replace with the correct AWS Account ID
+  ami_users     = ["185549876317", "657518575690"]
 
 }
 build {
   sources = ["source.amazon-ebs.debian-ami"]
   provisioner "file" {
-    source      = "webapp.zip"
+    source      = "../webapp.zip"
     destination = "~/webapp"
+    direction   = "upload"
+  }
+  provisioner "file" {
+    source      = "../cloudwatch-config.json"
+    destination = "/tmp/cloudwatch-config.json"
     direction   = "upload"
   }
 
@@ -79,7 +84,24 @@ build {
       "sudo systemctl start unit",
       "sudo apt-get clean",
 
+      # Install the Unified CloudWatch Agent
+      "sudo wget https://amazoncloudwatch-agent.s3.amazonaws.com/debian/amd64/latest/amazon-cloudwatch-agent.deb",
+      "sudo dpkg -i -E ./amazon-cloudwatch-agent.deb",
+      "unzip AmazonCloudWatchAgent.zip",
+      "sudo ./install.sh",
+      # Upload the CloudWatch Agent configuration file (amazon-cloudwatch-agent.json)
+      "sudo cp amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json",
+      # Start the CloudWatch Agent and enable it to start on boot
+      "sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s",
+      "sudo systemctl enable amazon-cloudwatch-agent",
+      "sudo systemctl start amazon-cloudwatch-agent",
+      "sudo mv /tmp/cloudwatch-config.json /opt/csye6225/cloudwatch-config.json",
+
+      "sudo apt clean",
+      "sudo rm -rf /var/lib/apt/lists/*",
+      "sudo rm -rf /var/lib/apt/lists/*",
     ]
   }
 
 }
+
