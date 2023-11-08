@@ -88,13 +88,12 @@ build {
       "sudo wget https://amazoncloudwatch-agent.s3.amazonaws.com/debian/amd64/latest/amazon-cloudwatch-agent.deb",
       "sudo dpkg -i -E ./amazon-cloudwatch-agent.deb",
       "unzip AmazonCloudWatchAgent.zip",
-      "sudo ./install.sh",
+      # "sudo ./install.sh",
       # Upload the CloudWatch Agent configuration file (amazon-cloudwatch-agent.json)
       "sudo cp amazon-cloudwatch-agent.json /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json",
       # Start the CloudWatch Agent and enable it to start on boot
-      "sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json -s",
-      "sudo systemctl enable amazon-cloudwatch-agent",
-      "sudo systemctl start amazon-cloudwatch-agent",
+
+
       "sudo mv /tmp/cloudwatch-config.json /opt/csye6225/cloudwatch-config.json",
 
       "sudo apt clean",
