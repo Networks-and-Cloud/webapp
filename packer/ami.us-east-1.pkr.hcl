@@ -85,11 +85,6 @@ build {
       "sudo systemctl start unit",
       "sudo apt-get clean",
 
-    ]
-  }
-
-  provisioner "shell" {
-    inline = [
       # Install the Unified CloudWatch Agent
       "sudo wget https://amazoncloudwatch-agent.s3.amazonaws.com/debian/amd64/latest/amazon-cloudwatch-agent.deb",
       "sudo dpkg -i -E ./amazon-cloudwatch-agent.deb",
@@ -102,19 +97,12 @@ build {
       "sudo systemctl enable amazon-cloudwatch-agent",
       "sudo systemctl start amazon-cloudwatch-agent",
       "sudo mv /tmp/cloudwatch-config.json /opt/csye6225/cloudwatch-config.json",
-    ]
-  }
 
-  provisioner "shell" {
-    inline = [
       "sudo apt clean",
       "sudo rm -rf /var/lib/apt/lists/*",
       "sudo rm -rf /var/lib/apt/lists/*",
     ]
   }
-
-
-
 
 }
 
