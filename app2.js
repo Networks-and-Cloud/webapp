@@ -5,6 +5,8 @@ import assignmentRoutes from "./routes/assignmentRoutes.js";
 import sequelize from "./config/dbConfig.js";
 import { bootstrap } from "./services/UserServices.js";
 //import assessHealth from './services/HealthRoutes.js';
+import logger from "./logger.js";
+// import winston from "winston/lib/winston/config/index.js";
 
 const app = Express();
 const PORT = 3000;
@@ -35,7 +37,11 @@ app.use(userRoutes);
 app.use(assignmentRoutes);
 
 
+
+
+
 app.get("/healthz",(req,res)=>{
+  logger.info('Health check request received');
   res.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
   res.setHeader("Pragma", "no-cache");
   res.setHeader("X-Content-Type-Options", "nosniff");
