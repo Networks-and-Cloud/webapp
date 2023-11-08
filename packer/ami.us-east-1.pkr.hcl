@@ -44,7 +44,7 @@ source "amazon-ebs" "debian-ami" {
   region        = var.region
   source_ami    = var.source_ami_owner
   ssh_username  = var.ssh_username
-  ami_users     = ["185549876317", "657518575690"] 
+  ami_users     = ["185549876317", "657518575690"]
 
 }
 build {
@@ -105,7 +105,7 @@ build {
     ]
   }
 
-    provisioner "shell" {
+  provisioner "shell" {
     inline = [
       "sudo apt clean",
       "sudo rm -rf /var/lib/apt/lists/*",
@@ -117,5 +117,5 @@ build {
 
 
 }
-  
+
 
