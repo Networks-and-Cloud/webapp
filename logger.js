@@ -26,7 +26,7 @@ const logger = winston.createLogger({
   transports: [
     // Log 'info' and above messages to a file
     new winston.transports.File({
-      filename: "var/log/csye6225.log",
+      filename: "/opt/csye6225/webapp/var/log/csye6225.log",
       level: 'info',
     }),
  

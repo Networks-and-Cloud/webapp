@@ -8,6 +8,19 @@ import { bootstrap } from "./services/UserServices.js";
 import logger from "./logger.js";
 // import winston from "winston/lib/winston/config/index.js";
 
+//const StatsD = require('node-statsd');
+/*
+const StatsD = require('node-statsd');
+const client = new StatsD({
+  errorHandler: function (error) {
+    console.error("StatsD error: ", error);
+  }
+});
+ client.increment('endpoint.healthz.hits');
+ 
+
+*/
+
 const app = Express();
 const PORT = 3000;
 
