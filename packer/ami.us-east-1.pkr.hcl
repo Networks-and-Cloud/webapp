@@ -89,7 +89,11 @@ build {
 
       "sudo mkdir -p /opt/aws/amazon-cloudwatch-agent/etc/",
       "sudo mv /opt/csye6225/webapp/cloudwatch-config.json /opt/aws/amazon-cloudwatch-agent/etc/cloudwatch-config.json",
-      # "sudo chown csye6225:csye6225 /opt/csye6225/webapp/cloudwatch-config.json",
+      
+      
+
+
+
     ]
   }
 
