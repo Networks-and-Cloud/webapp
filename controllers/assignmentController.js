@@ -1,12 +1,19 @@
 import * as assignmentService from "../services/assignmentService.js";
 import { getCredentials } from "../services/auth.js";
-
+import logger from "../logger.js"
+import StatsD from 'node-statsd';
+const client = new StatsD({
+  errorHandler: function (error) {
+    console.error("StatsD error: ", error);
+  }
+});
 export const getAllAssignments = async (req, res) => {
   try {
     
     const assignments = await assignmentService.getAllAssignments();
 
-    
+    logger.info('Get all assignments');
+    client.increment('endpoint.get.assignments');
     res.status(200).json(assignments);
   } catch (error) {
     
@@ -26,8 +33,10 @@ export const createAssignment = async (req, res) => {
 
     
     const assignment = await assignmentService.createAssignment(assignmentData);
-
+    
     res.status(201).json(assignment);
+    logger.info('Created assignment');
+    client.increment('endpoint.post.assignments');
   } catch (error) {
     
     res.status(400).json({ error: error.message });
@@ -61,6 +70,8 @@ export const deleteAssignment = async (req, res) => {
   try {
     if (await assignmentService.deleteAssignmentById(id, email)) {
       res.status(204).send();
+      logger.info('Assignment Deleted');
+      client.increment('endpoint.delete.assignments');
     } else {
       res.status(403).send();
     }
@@ -79,6 +90,8 @@ export const updateAssignment = async (req, res) => {
   try {
     if (await assignmentService.updateAssignmentById(id, assignmentData,email)) {
       res.status(204).send();
+      logger.info('Assignment updated');
+      client.increment('endpoint.delete.assignments');
     } else {
       res.status(403).send();
     }
