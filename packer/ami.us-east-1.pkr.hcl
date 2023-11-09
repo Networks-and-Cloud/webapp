@@ -87,7 +87,7 @@ build {
       # Install the Unified CloudWatch Agent
       "sudo wget https://amazoncloudwatch-agent.s3.amazonaws.com/debian/amd64/latest/amazon-cloudwatch-agent.deb",
       "sudo dpkg -i -E ./amazon-cloudwatch-agent.deb",
-     # "sudo mv /home/admin/webapp/cloudwatch-config.json /opt/csye6225/cloudwatch-config.json",
+      "sudo mv /home/admin/webapp/cloudwatch-config.json /opt/csye6225/cloudwatch-config.json",
      
       "sudo apt clean",
       "sudo rm -rf /var/lib/apt/lists/*",
