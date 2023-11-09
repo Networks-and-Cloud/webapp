@@ -82,15 +82,15 @@ build {
       "sudo chmod -R 755 .",
       "sudo mv /opt/csye6225/webapp/unit.service /etc/systemd/system/",
 
-      
+
       "sudo apt-get clean",
 
       # Install the Unified CloudWatch Agent
 
       "sudo mkdir -p /opt/aws/amazon-cloudwatch-agent/etc/",
       "sudo mv /opt/csye6225/webapp/cloudwatch-config.json /opt/aws/amazon-cloudwatch-agent/etc/cloudwatch-config.json",
-      
-      
+
+
 
 
 
