@@ -16,6 +16,7 @@ const logger = createLogger({
       level: 'info' // File transport will only log messages at error level
     })
   ]
+
 });
 
 export default logger;
