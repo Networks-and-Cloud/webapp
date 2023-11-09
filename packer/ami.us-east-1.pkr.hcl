@@ -89,6 +89,9 @@ build {
 
       "sudo mkdir -p /opt/aws/amazon-cloudwatch-agent/etc/",
       "sudo mv /opt/csye6225/webapp/cloudwatch-config.json /opt/aws/amazon-cloudwatch-agent/etc/cloudwatch-config.json",
+      "sudo /opt/aws/amazon-cloudwatch-agent/bin/amazon-cloudwatch-agent-ctl -a fetch-config -m ec2 -c file:/opt/aws/amazon-cloudwatch-agent/etc/cloudwatch-config.json -s",
+      "sudo systemctl enable amazon-cloudwatch-agent",
+      "sudo systemctl start amazon-cloudwatch-agent",
 
 
 
