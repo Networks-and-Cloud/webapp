@@ -90,13 +90,19 @@ jobs:
       
 
     - name: Initialize Packer
-      run: packer init  packer/ami.us-east-1.pkr.hcl
+      working-directory: packer
+
+      run: packer init ami.us-east-1.pkr.hcl
+
       
     - name: Build AMI
       env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: packer build packer/ami.us-east-1.pkr.hcl
+      working-directory: packer
+
+      run: packer build ami.us-east-1.pkr.hcl
+
 
         
       shell: bash

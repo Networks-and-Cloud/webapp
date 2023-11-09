@@ -44,14 +44,19 @@ source "amazon-ebs" "debian-ami" {
   region        = var.region
   source_ami    = var.source_ami_owner
   ssh_username  = var.ssh_username
-  ami_users     = ["185549876317", "657518575690"] # Replace with the correct AWS Account ID
+  ami_users     = ["185549876317", "657518575690"]
 
 }
 build {
   sources = ["source.amazon-ebs.debian-ami"]
   provisioner "file" {
-    source      = "webapp.zip"
+    source      = "../webapp.zip"
     destination = "~/webapp"
+    direction   = "upload"
+  }
+  provisioner "file" {
+    source      = "../cloudwatch-config.json"
+    destination = "/tmp/cloudwatch-config.json"
     direction   = "upload"
   }
 
@@ -79,8 +84,15 @@ build {
       "sudo systemctl start unit",
       "sudo apt-get clean",
 
+      # Install the Unified CloudWatch Agent
+
+      "sudo wget https://amazoncloudwatch-agent.s3.amazonaws.com/debian/amd64/latest/amazon-cloudwatch-agent.deb",
+      "sudo dpkg -i -E amazon-cloudwatch-agent.deb",
+      "sudo mkdir -p /opt/aws/amazon-cloudwatch-agent/etc/",
+      "sudo mv /opt/csye6225/webapp/cloudwatch-config.json /opt/aws/amazon-cloudwatch-agent/etc/cloudwatch-config.json",
+      "sudo chown csye6225:csye6225 /opt/aws/amazon-cloudwatch-agent/etc/cloudwatch-config.json",
     ]
   }
 
 }
-  
+
