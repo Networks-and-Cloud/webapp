@@ -32,6 +32,9 @@ const app = Express();
 const PORT = 3000;
 
 app.use(Express.json());
+const submissionAttempts = {};
+
+
 
 app.use( async (req, res,next) => {
   try {
@@ -58,8 +61,6 @@ app.use(assignmentRoutes);
 
 
 
-
-
 app.get("/healthz",(req,res)=>{
   logger.info('Health check request received');
   client.increment('endpoint.healthz.hit');
@@ -80,6 +81,10 @@ app.all("/healthz",(req,res)=>{
   } else {
     next();
   }});
+
+
+
+
 
 
 

@@ -1,5 +1,4 @@
 
-
 import * as userService from '../services/UserServices.js';
 
 export const bootstrapController = async (req, res) => {

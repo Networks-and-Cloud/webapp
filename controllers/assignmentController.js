@@ -1,7 +1,14 @@
 import * as assignmentService from "../services/assignmentService.js";
+
+
 import { getCredentials } from "../services/auth.js";
 import logger from "../logger.js"
 import StatsD from 'node-statsd';
+import e from "express";
+import { Assignment } from "../models/assignment.js";
+import { Submission } from "../models/submission.js";
+//import { submitAssignment } from "../services/assignmentService.js";
+
 const client = new StatsD({
   errorHandler: function (error) {
     console.error("StatsD error: ", error);
@@ -63,6 +70,69 @@ export const getAssignmentById = async (req, res) => {
   }
 };
 
+
+
+// export const submitAssignment = async (req, res) => {
+//   const assignment_id = req.params.id;
+//  // const userEmail = getCredentials(req)[0];
+//   const submissionData = req.body;
+
+//   try {
+//     const submissionResult = await assignmentService.submitAssignment(assignment_id, submissionData);
+
+//     res.status(201).json(submissionResult);
+//   } catch (error) {
+//     console.error(error);
+
+//     // if (error.message.includes('Submission rejected')) {
+//     //   res.status(400).json({ error: error.message });
+//     // } else if (error.message.includes('Assignment with ID')) {
+//     //   res.status(404).json({ error: error.message });
+//     // } else if (error.message === 'Forbidden') {
+//     //   res.status(403).json({ error: error.message });
+//     // } else {
+//     //   res.status(502).json({ error: 'Internal Server Error' });
+//     // }
+//   }
+// };
+
+export const submitAssignment = async (req, res) => {
+  const assignmentId = req.params.id; // Assuming assignmentId is part of the route path
+  console.log(assignmentId)
+  const submissionData = req.body;
+  console.log(submissionData)
+
+  try {
+    const userEmail = getCredentials(req)[0];
+
+    // Assuming you have a submission service method like submitAssignment
+    const submission = await assignmentService.createSubmission(assignmentId, submissionData);
+
+
+    // Log and respond with the created submission
+    logger.info('Submitted assignment');
+    res.status(201).json(submission);
+  } catch (error) {
+    // Handle any errors that occur during the submission process
+    console.error(error);
+
+    // Return an appropriate error response
+    if (error.message.includes('Submission rejected')) {
+      res.status(400).json({ error: error.message });
+    } else if (error.message.includes('Assignment with ID')) {
+      res.status(404).json({ error: error.message });
+    } else if (error.message === 'Forbidden') {
+      res.status(403).json({ error: error.message });
+    } else {
+      res.status(502).json({ error: 'Internal Server Error' });
+    }
+  }
+};
+
+
+
+
+
 export const deleteAssignment = async (req, res) => {
   const { id } = req.params;
 
@@ -100,6 +170,7 @@ export const updateAssignment = async (req, res) => {
     res.status(404).json({ error: error.message });
   }
 };
+
 
 export const patchAssignment = async (req, res) => {
   res.status(405).send();
