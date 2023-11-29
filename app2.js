@@ -32,6 +32,9 @@ const app = Express();
 const PORT = 3000;
 
 app.use(Express.json());
+const submissionAttempts = {};
+
+
 
 app.use( async (req, res,next) => {
   try {
@@ -55,8 +58,6 @@ app.use((req, res, next) => {
 
 app.use(userRoutes);
 app.use(assignmentRoutes);
-
-
 
 
 

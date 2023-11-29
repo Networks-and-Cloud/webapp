@@ -1,15 +1,16 @@
 
-
 import { User } from "../models/User.js";
 import bcrypt from "bcrypt";
 import { parseCSV } from "../Scripts/UserScripts.js";
 import { Assignment } from "../models/assignment.js";
 import { where } from "sequelize";
+import {Submission} from "../models/submission.js";
 
 
 export const bootstrap = async () => {
   await User.sync();
   await Assignment.sync();
+  await Submission.sync();
   try {
     parseCSV(async (data) => {
     

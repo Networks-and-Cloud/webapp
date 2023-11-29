@@ -8,6 +8,7 @@ app.use(express.json());
 
 const mysql = require('mysql2');
 
+
 app.get('/health', (req,res) => {
   let isHealthy =false
   var connection = mysql.createConnection({
