@@ -84,10 +84,6 @@ app.all("/healthz",(req,res)=>{
 
 
 
-
-
-
-
 //  app.use("/healthz",assessHealth);
 app.listen(PORT, () => {
   console.log("Server is running on", PORT);
