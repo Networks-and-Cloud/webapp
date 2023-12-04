@@ -67,3 +67,4 @@ sns.publish(params, (err, data) => {
     console.log('Message published successfully:', data);
   }
 });
+
