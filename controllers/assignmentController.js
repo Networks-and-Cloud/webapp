@@ -6,6 +6,8 @@ import e from "express";
 import { Assignment } from "../models/assignment.js";
 import { Submission } from "../models/submission.js";
 //import { submitAssignment } from "../services/assignmentService.js";
+import AWS from 'aws-sdk';
+
 
 const client = new StatsD({
   errorHandler: function (error) {
@@ -69,21 +71,38 @@ export const getAssignmentById = async (req, res) => {
 };
 
 
+
+AWS.config.update({ region: 'us-east-1' });
+const sns = new AWS.SNS();
+
 export const submitAssignment = async (req, res) => {
   const assignmentId = req.params.id; 
-  console.log(assignmentId)
+  console.log(assignmentId);
+
   const submissionData = req.body;
-  console.log(submissionData)
+  console.log(submissionData);
 
   try {
     const userEmail = getCredentials(req)[0];
-
     const submission = await assignmentService.createSubmission(assignmentId, submissionData);
-
 
     // Log and respond with the created submission
     logger.info('Submitted assignment');
     res.status(201).json(submission);
+
+    // Publish a message to SNS
+    const params = {
+      Message: JSON.stringify({ email: userEmail, submissionUrl: submission.submission_url, submissionId: submission.id }),
+      TopicArn: process.env.snsTopic,
+    };
+
+    sns.publish(params, function (err, data) {
+      if (err) {
+        logger.warn(err, err.stack);
+      } else {
+        logger.info(`Message sent to SNS: ${data}`);
+      }
+    });
   } catch (error) {
     // Handle any errors that occur during the submission process
     console.error(error);
@@ -100,6 +119,7 @@ export const submitAssignment = async (req, res) => {
     }
   }
 };
+
 
 
 
