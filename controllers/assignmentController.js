@@ -1,6 +1,4 @@
 import * as assignmentService from "../services/assignmentService.js";
-
-
 import { getCredentials } from "../services/auth.js";
 import logger from "../logger.js"
 import StatsD from 'node-statsd';
@@ -71,33 +69,8 @@ export const getAssignmentById = async (req, res) => {
 };
 
 
-
-// export const submitAssignment = async (req, res) => {
-//   const assignment_id = req.params.id;
-//  // const userEmail = getCredentials(req)[0];
-//   const submissionData = req.body;
-
-//   try {
-//     const submissionResult = await assignmentService.submitAssignment(assignment_id, submissionData);
-
-//     res.status(201).json(submissionResult);
-//   } catch (error) {
-//     console.error(error);
-
-//     // if (error.message.includes('Submission rejected')) {
-//     //   res.status(400).json({ error: error.message });
-//     // } else if (error.message.includes('Assignment with ID')) {
-//     //   res.status(404).json({ error: error.message });
-//     // } else if (error.message === 'Forbidden') {
-//     //   res.status(403).json({ error: error.message });
-//     // } else {
-//     //   res.status(502).json({ error: 'Internal Server Error' });
-//     // }
-//   }
-// };
-
 export const submitAssignment = async (req, res) => {
-  const assignmentId = req.params.id; // Assuming assignmentId is part of the route path
+  const assignmentId = req.params.id; 
   console.log(assignmentId)
   const submissionData = req.body;
   console.log(submissionData)
@@ -105,7 +78,6 @@ export const submitAssignment = async (req, res) => {
   try {
     const userEmail = getCredentials(req)[0];
 
-    // Assuming you have a submission service method like submitAssignment
     const submission = await assignmentService.createSubmission(assignmentId, submissionData);
 
 
@@ -128,8 +100,6 @@ export const submitAssignment = async (req, res) => {
     }
   }
 };
-
-
 
 
 
