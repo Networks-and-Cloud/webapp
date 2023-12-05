@@ -90,9 +90,16 @@ export const submitAssignment = async (req, res) => {
     logger.info('Submitted assignment');
     res.status(201).json(submission);
 
+
+    const submissionObject = {
+      submission_url: submission.submission_url,
+      email: userEmail,
+      assignment_id:assignmentId,
+  }
+
     // Publish a message to SNS
     const params = {
-      Message: JSON.stringify({ email: userEmail, submissionUrl: submission.submission_url, submissionId: submission.id }),
+      Message: JSON.stringify(submissionObject),
       TopicArn: process.env.snsTopic,
     };
 

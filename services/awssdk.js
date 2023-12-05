@@ -35,8 +35,8 @@ AWS.config.update({
 const sns = new AWS.SNS();
 
 
-const topicArn = 'arn:aws:sns:us-east-1:6575-1857-5690:my-sns-topic-9aa8905';
-
+// const topicArn = 'arn:aws:sns:us-east-1:6575-1857-5690:my-sns-topic-9aa8905';
+const snsTopic = 'arn:aws:sns:us-east-1:6575-1857-5690:my-sns-topic-9aa8905';
 const userEmail = 'kale.v@northeastern.edu';
 
 // Define the message to be published
@@ -55,7 +55,7 @@ const messageAttributes = {
 // Prepare the parameters for the publish operation
 const params = {
   Message: message,
-  TopicArn: topicArn,
+  snsTopic: snsTopic,
   MessageAttributes: messageAttributes,
 };
 
