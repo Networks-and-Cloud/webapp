@@ -26,8 +26,8 @@ const AWS = require('aws-sdk');
 
 // Set the AWS credentials and region
 AWS.config.update({
-  accessKeyId: 'AKIAZSFZJIBFHXC63VCV',
-  secretAccessKey: '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',
+  accessKeyId: '',
+  secretAccessKey: '',
   region: 'us-east-1', 
 });
 
@@ -35,8 +35,8 @@ AWS.config.update({
 const sns = new AWS.SNS();
 
 
-// const topicArn = 'arn:aws:sns:us-east-1:6575-1857-5690:my-sns-topic-9aa8905';
-const snsTopic = 'arn:aws:sns:us-east-1:6575-1857-5690:my-sns-topic-9aa8905';
+// const topicArn = '';
+const snsTopic = '';
 const userEmail = 'kale.v@northeastern.edu';
 
 // Define the message to be published
